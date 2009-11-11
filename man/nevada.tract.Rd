@@ -134,7 +134,7 @@ data(nevada.tract)
 ############################################
 color.map<- function(x,dem,y=NULL){
 	l.poly<-length(x@polygons)
-	dem.num<- cut(as.numeric(dem) ,breaks=ceiling(quantile(dem)),dig.lab = 6)
+	dem.num<- cut(dem ,breaks=ceiling(quantile(dem)),dig.lab = 6)
 	dem.num[which(is.na(dem.num)==TRUE)]<-levels(dem.num)[1]
 	l.uc<-length(table(dem.num))
 if(is.null(y)){
@@ -157,7 +157,7 @@ return(out)
 ## Helper function for handling coloring of the map
 ############################################
 
-colors.use<-color.map(nevada.tract,as.numeric(nevada.tract@data$pop2000))
+colors.use<-color.map(nevada.tract,nevada.tract$pop2000)
 plot(nevada.tract,col=colors.use$colors)
 #text(coordinates(nevada.tract),nevada.tract@data$name,cex=.3)
 title(main="Census Tracts \n of Nevada, 2000", sub="Quantiles (equal frequency)")
@@ -178,7 +178,7 @@ library(maps)
 data(nevada.tract)
 
 map('state',region='nevada')
-plotvar <- as.numeric(nevada.tract@data$pop2000)
+plotvar <- nevada.tract$pop2000
 	nclr <- 4
 	#BuPu
 	plotclr <- brewer.pal(nclr,"BuPu")

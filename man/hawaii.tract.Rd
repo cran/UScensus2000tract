@@ -134,7 +134,7 @@ data(hawaii.tract)
 ############################################
 color.map<- function(x,dem,y=NULL){
 	l.poly<-length(x@polygons)
-	dem.num<- cut(as.numeric(dem) ,breaks=ceiling(quantile(dem,na.rm=TRUE)),dig.lab = 6)
+	dem.num<- cut(dem,breaks=ceiling(quantile(dem,na.rm=TRUE)),dig.lab = 6)
 	dem.num[which(is.na(dem.num)==TRUE)]<-levels(dem.num)[1]
 	l.uc<-length(table(dem.num))
 if(is.null(y)){
@@ -157,9 +157,9 @@ return(out)
 ## Helper function for handling coloring of the map
 ############################################
 
-colors.use<-color.map(hawaii.tract,as.numeric(hawaii.tract@data$pop2000))
+colors.use<-color.map(hawaii.tract,hawaii.tract$pop2000)
 plot(hawaii.tract,col=colors.use$colors)
-#text(coordinates(hawaii.tract),hawaii.tract@data$name,cex=.3)
+#text(coordinates(hawaii.tract),hawaii.tract$name,cex=.3)
 title(main="Census Tracts \n of Hawaii, 2000", sub="Quantiles (equal frequency)")
 legend("bottomright",legend=colors.use$dem.cut,fill=colors.use$table.colors,bty="o",title="Population Count",bg="white")
 

@@ -134,7 +134,7 @@ data(illinois.tract)
 ############################################
 color.map<- function(x,dem,y=NULL){
 	l.poly<-length(x@polygons)
-	dem.num<- cut(as.numeric(dem) ,breaks=ceiling(quantile(dem)),dig.lab = 6)
+	dem.num<- cut(dem ,breaks=ceiling(quantile(dem)),dig.lab = 6)
 	dem.num[which(is.na(dem.num)==TRUE)]<-levels(dem.num)[1]
 	l.uc<-length(table(dem.num))
 if(is.null(y)){
@@ -157,7 +157,7 @@ return(out)
 ## Helper function for handling coloring of the map
 ############################################
 
-colors.use<-color.map(illinois.tract,as.numeric(illinois.tract@data$pop2000))
+colors.use<-color.map(illinois.tract,illinois.tract$pop2000)
 plot(illinois.tract,col=colors.use$colors)
 #text(coordinates(illinois.tract),illinois.tract@data$name,cex=.3)
 title(main="Census Tracts \n of Illinois, 2000", sub="Quantiles (equal frequency)")
@@ -178,7 +178,7 @@ library(maps)
 data(illinois.tract)
 
 map('state',region='illinois')
-plotvar <- as.numeric(illinois.tract@data$pop2000)
+plotvar <- illinois.tract$pop2000
 	nclr <- 4
 	#BuPu
 	plotclr <- brewer.pal(nclr,"BuPu")

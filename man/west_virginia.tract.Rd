@@ -134,7 +134,7 @@ data(west_virginia.tract)
 ############################################
 color.map<- function(x,dem,y=NULL){
 	l.poly<-length(x@polygons)
-	dem.num<- cut(as.numeric(dem) ,breaks=ceiling(quantile(dem)),dig.lab = 6)
+	dem.num<- cut(dem ,breaks=ceiling(quantile(dem)),dig.lab = 6)
 	dem.num[which(is.na(dem.num)==TRUE)]<-levels(dem.num)[1]
 	l.uc<-length(table(dem.num))
 if(is.null(y)){
@@ -157,7 +157,7 @@ return(out)
 ## Helper function for handling coloring of the map
 ############################################
 
-colors.use<-color.map(west_virginia.tract,as.numeric(west_virginia.tract@data$pop2000))
+colors.use<-color.map(west_virginia.tract,west_virginia.tract$pop2000)
 plot(west_virginia.tract,col=colors.use$colors)
 #text(coordinates(west_virginia.tract),west_virginia.tract@data$name,cex=.3)
 title(main="Census Tracts \n of West_virginia, 2000", sub="Quantiles (equal frequency)")
@@ -178,7 +178,7 @@ library(maps)
 data(west_virginia.tract)
 
 map('state',region='west_virginia')
-plotvar <- as.numeric(west_virginia.tract@data$pop2000)
+plotvar <- west_virginia.tract$pop2000
 	nclr <- 4
 	#BuPu
 	plotclr <- brewer.pal(nclr,"BuPu")

@@ -134,7 +134,7 @@ data(new_jersey.tract)
 ############################################
 color.map<- function(x,dem,y=NULL){
 	l.poly<-length(x@polygons)
-	dem.num<- cut(as.numeric(dem) ,breaks=ceiling(quantile(dem)),dig.lab = 6)
+	dem.num<- cut(dem ,breaks=ceiling(quantile(dem)),dig.lab = 6)
 	dem.num[which(is.na(dem.num)==TRUE)]<-levels(dem.num)[1]
 	l.uc<-length(table(dem.num))
 if(is.null(y)){
@@ -157,7 +157,7 @@ return(out)
 ## Helper function for handling coloring of the map
 ############################################
 
-colors.use<-color.map(new_jersey.tract,as.numeric(new_jersey.tract@data$pop2000))
+colors.use<-color.map(new_jersey.tract,new_jersey.tract$pop2000)
 plot(new_jersey.tract,col=colors.use$colors)
 #text(coordinates(new_jersey.tract),new_jersey.tract@data$name,cex=.3)
 title(main="Census Tracts \n of New_jersey, 2000", sub="Quantiles (equal frequency)")
@@ -178,7 +178,7 @@ library(maps)
 data(new_jersey.tract)
 
 map('state',region='new_jersey')
-plotvar <- as.numeric(new_jersey.tract@data$pop2000)
+plotvar <- new_jersey.tract$pop2000
 	nclr <- 4
 	#BuPu
 	plotclr <- brewer.pal(nclr,"BuPu")

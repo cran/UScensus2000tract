@@ -134,7 +134,7 @@ data(district_of_columbia.tract)
 ############################################
 color.map<- function(x,dem,y=NULL){
 	l.poly<-length(x@polygons)
-	dem.num<- cut(as.numeric(dem) ,breaks=ceiling(quantile(dem)),dig.lab = 6)
+	dem.num<- cut(dem ,breaks=ceiling(quantile(dem)),dig.lab = 6)
 	dem.num[which(is.na(dem.num)==TRUE)]<-levels(dem.num)[1]
 	l.uc<-length(table(dem.num))
 if(is.null(y)){
@@ -157,7 +157,7 @@ return(out)
 ## Helper function for handling coloring of the map
 ############################################
 
-colors.use<-color.map(district_of_columbia.tract,as.numeric(district_of_columbia.tract@data$pop2000))
+colors.use<-color.map(district_of_columbia.tract,district_of_columbia.tract$pop2000)
 plot(district_of_columbia.tract,col=colors.use$colors)
 #text(coordinates(district_of_columbia.tract),district_of_columbia.tract@data$name,cex=.3)
 title(main="Census Tracts \n of District_of_columbia, 2000", sub="Quantiles (equal frequency)")
@@ -178,7 +178,7 @@ library(maps)
 data(district_of_columbia.tract)
 
 map('state',region='district_of_columbia')
-plotvar <- as.numeric(district_of_columbia.tract@data$pop2000)
+plotvar <- district_of_columbia.tract$pop2000
 	nclr <- 4
 	#BuPu
 	plotclr <- brewer.pal(nclr,"BuPu")

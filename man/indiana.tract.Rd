@@ -134,7 +134,7 @@ data(indiana.tract)
 ############################################
 color.map<- function(x,dem,y=NULL){
 	l.poly<-length(x@polygons)
-	dem.num<- cut(as.numeric(dem) ,breaks=ceiling(quantile(dem)),dig.lab = 6)
+	dem.num<- cut(dem ,breaks=ceiling(quantile(dem)),dig.lab = 6)
 	dem.num[which(is.na(dem.num)==TRUE)]<-levels(dem.num)[1]
 	l.uc<-length(table(dem.num))
 if(is.null(y)){
@@ -157,7 +157,7 @@ return(out)
 ## Helper function for handling coloring of the map
 ############################################
 
-colors.use<-color.map(indiana.tract,as.numeric(indiana.tract@data$pop2000))
+colors.use<-color.map(indiana.tract,indiana.tract$pop2000)
 plot(indiana.tract,col=colors.use$colors)
 #text(coordinates(indiana.tract),indiana.tract@data$name,cex=.3)
 title(main="Census Tracts \n of Indiana, 2000", sub="Quantiles (equal frequency)")
@@ -178,7 +178,7 @@ library(maps)
 data(indiana.tract)
 
 map('state',region='indiana')
-plotvar <- as.numeric(indiana.tract@data$pop2000)
+plotvar <- indiana.tract$pop2000
 	nclr <- 4
 	#BuPu
 	plotclr <- brewer.pal(nclr,"BuPu")
